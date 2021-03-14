@@ -6,20 +6,20 @@
 #include <WiFiUdp.h>
 #include "Adafruit_MQTT.h"
 #include "Adafruit_MQTT_Client.h"
-const char *ssid =  "emulator";     // Enter your WiFi Name
-const char *pass =  "1234567890"; // Enter your WiFi Password
+const char *ssid =  "wifi-name";     // Enter your WiFi Name
+const char *pass =  "wifi-password"; // Enter your WiFi Password
 
 #define MQTT_SERV "io.adafruit.com"
 #define MQTT_PORT 1883
-#define MQTT_NAME "adarsh808"
-#define MQTT_PASS "aio_ZqZK30HZec3K39jvxge0zehpEta5"
+#define MQTT_NAME "adafruit-username"
+#define MQTT_PASS "adafruit-aio-key"
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, "pool.ntp.org", 19800,60000);
 Servo myservo;                          //servo as gate
 Servo myservos;                               //servo as gate
 #define led1 D4
 #define led2 D6
-#define led3 D7
+#define led3 D7 //This LED,D7 pin is not used in this project
 #define led4 D8
 
 int carEnter = D0;                      // entry sensor 
@@ -119,7 +119,7 @@ str=" SLOT 1,SLOT 2 AVAILABLE";
       }
    count=0;
   
-   Serial.println("Car Entered ");
+   
 }
 
  if( !(digitalRead(s1)) && digitalRead(s2)  )  //2 ; slot2 available
@@ -137,7 +137,7 @@ str=" SLOT 1,SLOT 2 AVAILABLE";
       }
        count=1;
      
-      Serial.println("Car Entered ");
+     
   }
 
    if( digitalRead(s1) && !(digitalRead(s2)) )     //3 ; slot1  available
@@ -156,7 +156,7 @@ str=" SLOT 1,SLOT 2 AVAILABLE";
       }
       count=1;
       
-      Serial.println("Car Entered ");
+   
    }
  
 
@@ -173,15 +173,10 @@ str=" SLOT 1,SLOT 2 AVAILABLE";
         
 
      }
-    if(newcount != count){
-     if (! CarsParked.publish(count)) {}
-     Serial.print("count published");
-    }
-
-    if( str!=newstr)
+   r!=newstr)
     {
       if (! slotstatus.publish((char*) str.c_str())) {}
-     Serial.print("str published");
+     Serial.print("slot status published");
     }
  
    
